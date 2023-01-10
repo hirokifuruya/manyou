@@ -1,0 +1,21 @@
+<div class="container">
+<div class="main">
+  <p class="content"><%= notice %></p>
+
+<table class="content">
+  <tr>
+    <th>一覧<th>
+  </tr>
+<% @task.each do |task| %>
+  <tr>
+    <td><%= task.content %></td>
+    <td><%= link_to '確認', task_path(task.id), class: "link" %></td>
+    <td><%= link_to '編集', edit_task_path(task.id), class: "link" %></td>
+    <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></td>
+  </tr>
+<% end%>
+</table>
+
+<div class="new_button">
+<%= link_to'新しく投稿する', new_task_path, class: "new_link" %>
+</div>

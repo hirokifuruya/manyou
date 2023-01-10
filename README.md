@@ -4,7 +4,7 @@
 |    |email|string|
 |    |password|string|
 |Task|task_name|string|
-|    |task_content|string|
+|    |task_content|text|
 |    |deadline|string|
 |    |status|string|
 |Label|label_name|string|
