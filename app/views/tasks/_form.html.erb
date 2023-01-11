@@ -1,0 +1,25 @@
+<%= form_with(model: @task, local: true) do |form| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+    <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+    <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    </div>
+  <% end %>
+
+  <p>投稿内容を記入してください</p>
+
+  <%= form.label :task_name,"タスク名" %>
+  <%= form.text_field :task_name %>
+
+  <%= form.label :task_content,"内容" %>
+  <%= form.text_field :task_content %>
+
+  <%= form.submit "タスク作成" %>
+
+<% end %>
+
+<%= link_to "タスク一覧画面にもどる", tasks_path,class: "btn btn-primary" %>

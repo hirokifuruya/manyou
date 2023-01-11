@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
+  root 'tasks#index'
 
-  resources :task do
-    collection do
-      post :condirm
-    end
-  end
+  resources :tasks
 end
