@@ -9,7 +9,7 @@
   </tr>
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.task_name %></td>
+    <td class='task_row'><%= task.task_name %></td>
     <td><%= task.task_content %></td>
     <td><%= link_to '確認', task_path(task.id), class: "link" %></td>
     <td><%= link_to '編集', edit_task_path(task.id), class: "link" %></td>
