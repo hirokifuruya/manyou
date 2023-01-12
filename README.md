@@ -1,4 +1,14 @@
 
+# HEROKUデブロイ手順
+1.heroku cretate
+2.heroku create
+3.git add .
+4.git commit -m"init"
+5.git push heroku step2:master
+6.heroku run rails db:maigrate
+7.heroku open
+
+
 | モデル名 | カラム名 | データ型 |
 |----------|----------|----------|
 | User     | id       | integer  |
