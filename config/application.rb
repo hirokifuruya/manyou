@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Manyoukadai1
   class Application < Rails::Application
+    config.time_zone = 'Tokyo'
     config.load_defaults 6.0
 
     config.generators do |g|
