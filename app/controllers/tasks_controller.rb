@@ -1,8 +1,15 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
 
     def index
-      @tasks = Task.all.order(created_at: :desc)
+      @tasks = Task.order("#{sort_column} #{sort_direction}") #.page(params[:pege])
+      if params[:task_name].present?
+        @tasks = @tasks.get_by_task_name params[:task_name]
+      end
+      if params[:status].present?
+        @tasks = @tasks.get_by_status params[:status]
+      end
     end
 
     def new
@@ -50,10 +57,18 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:task_content, :task_name)
+      params.require(:task).permit(:task_content, :task_name, :deadline, :status)
     end
 
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    end
+
+    def sort_column
+      Task.column_names.include?(params[:sort]) ? params[:sort] : 'id'
     end
 end

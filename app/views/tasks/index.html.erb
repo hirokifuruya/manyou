@@ -1,22 +1,30 @@
 <div class="container">
-<div class="main">
+<div class="master">
   <p class="content"><%= notice %></p>
 
 <table class="content">
   <tr>
-    <th>名前<th>
-    <th>一覧<th>
+    <th>タスク名<th>
+    <th>詳細<th>
+    <th><%= sort_order "deadline", "終了期限"%></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 <% @tasks.each do |task| %>
   <tr>
     <td class='task_row'><%= task.task_name %></td>
     <td><%= task.task_content %></td>
-    <td><%= link_to '確認', task_path(task.id), class: "link" %></td>
-    <td><%= link_to '編集', edit_task_path(task.id), class: "link" %></td>
-    <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></td>
+    <td><%= task.deadline %></td>
+    <td><%= task.status %></td>
+    <td><%= link_to '詳細を確認する', task_path(task.id), class: "link" %></td>
+    <td><%= link_to '編集する', edit_task_path(task.id), class: "link" %></td>
+    <td><%= link_to '削除する', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></td>
   </tr>
+
 <% end%>
 </table>
 
-<%= link_to'新しく投稿する', new_task_path, class: "new_link" %>
+<%= link_to'タスクを作成する', new_task_path, class: "new_link" %>
 
