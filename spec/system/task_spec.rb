@@ -16,6 +16,18 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task1'
       end
     end
+    context 'タスクが終了期限の降順に並んでいる場合' do
+      it '終了期限が近いものから表示する' do
+        task = FactoryBot.create(:task, task_name: 'タイトル1', deadline: "2023-02-02")
+        task = FactoryBot.create(:second_task, task_name: 'タイトル2', deadline: "2023-03-03")
+        visit tasks_path
+        click_on '終了期限'
+        sleep(2)
+        task_list = all('.task_row')
+          expect(task_list[0]).to have_content '名前1'
+          expect(task_list[1]).to have_content 'タイトル1'
+      end
+    end
   end
 
   describe '検索機能' do
@@ -37,7 +49,6 @@ RSpec.describe 'タスク管理機能', type: :system do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         visit tasks_path
         select '着手中', from: 'status'
-        sleep(10)
         click_on '検索'
         expect(page).to have_content '着手中'
       end
