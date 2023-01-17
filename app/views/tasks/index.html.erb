@@ -28,12 +28,16 @@
       <td><%= task.deadline %></td>
       <td><%= task.priority%></td>
       <td><%= task.status %></td>
-      <td><%= link_to '詳細を確認する', task_path(task.id), class: "link" %></td>
-      <td><%= link_to '編集する', edit_task_path(task.id), class: "link" %></td>
-      <td><%= link_to '削除する', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></td>
+      <td><button type="button" class="btn btn-outline-secondary"><%= link_to '詳細を確認する', task_path(task.id), class: "link" %></button></td>
+      <td><button type="button" class="btn btn-outline-secondary"><%= link_to '編集する', edit_task_path(task.id), class: "link" %></button></td>
+      <td><button type="button" class="btn btn-outline-secondary"><%= link_to '削除する', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></button></td>
     </tr>
   <% end%>
 </table>
 
-<%= link_to'タスクを作成する', new_task_path, class: "new_link" %>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <%= link_to'タスクを作成する', new_task_path, class: "new_link" %>
+  </label>
+</div>
 <%= paginate @tasks %>
