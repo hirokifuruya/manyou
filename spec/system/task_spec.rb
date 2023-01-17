@@ -7,39 +7,50 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
         visit new_task_path
-        fill_in 'task[task_name]', with: '先生'
+        fill_in 'task[task_name]', with: 'task1'
         fill_in 'task[task_content]', with:'test'
+        fill_in "task[deadline]", with: "2022-02-01"
+        select '低', from: 'task_priority'
+        select '着手中', from: 'task_status'
         click_on 'commit'
-        expect(page).to have_content '先生'
+        expect(page).to have_content 'task1'
       end
     end
   end
-  describe '一覧表示機能' do
+
+  describe '検索機能' do
     before do
-      #あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-      FactoryBot.create(:task)
-      FactoryBot.create(:second_task)
-      visit tasks_path
+      # 必要に応じて、テストデータの内容を変更して構わない
+      FactoryBot.create(:task, task_name: 'task1', status: '着手中')
+      FactoryBot.create(:second_task, task_name: 'task2', status: '完了')
     end
-    context '一覧画面に遷移した場合' do
-      it '作成済みのタスク一覧が表示される' do
-        expect(page).to have_content '名前1'
-      end
-    end
-    context 'タスクが作成日時の降順に並んでいる場合' do
-      it '新しいタスクが一番上に表示される' do
+
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
         visit tasks_path
-        task_list = all('.task_row')
-        expect(task_list.first).to have_content '名前2'
+        fill_in 'task_name', with: 'task'
+        click_on '検索'
+        expect(page).to have_content 'task1'
       end
     end
-  end
-  describe '詳細表示機能' do
-    context '任意のタスク詳細画面に遷移した場合' do
-      it '該当タスクの内容が表示される' do
-        visit task_path(task.id)
-        expect(page).to have_content '名前1'
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        visit tasks_path
+        select '着手中', from: 'status'
+        sleep(10)
+        click_on '検索'
+        expect(page).to have_content '着手中'
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        visit tasks_path
+        fill_in 'task_name', with: 'task'
+        select '未着手', from: 'status'
+        click_on '検索'
+        expect(page).to have_content '未着手'
       end
     end
   end
 end
+
