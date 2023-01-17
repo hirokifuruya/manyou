@@ -9,14 +9,15 @@
       <%= select_tag :status, options_for_select(Task.statuses), include_blank: true %>
       <%= submit_tag "検索" %>
       <% end %>
+  </div>
 
 <table class="content">
   <tr>
-    <th>タイトル名<th>
-    <th>詳細<th>
+    <th>タイトル名</th>
+    <th>詳細</th>
     <th><%= sort_order "deadline", "終了期限"%></th>
+    <th><%= sort_order "priority", "優先度"%></th>
     <th>ステータス</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -25,6 +26,7 @@
     <td class='task_row'><%= task.task_name %></td>
     <td><%= task.task_content %></td>
     <td><%= task.deadline %></td>
+    <td><%= task.priority%></td>
     <td><%= task.status %></td>
     <td><%= link_to '詳細を確認する', task_path(task.id), class: "link" %></td>
     <td><%= link_to '編集する', edit_task_path(task.id), class: "link" %></td>

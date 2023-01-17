@@ -21,6 +21,9 @@
     <%= form.label :deadline, "終了期限" %>
     <%= form.text_field :deadline %>
 
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys, :selected=>Task.priorities[@task.priority]  %>
+
     <%= form.label :status %>
     <%= form.select :status, Task.statuses.keys, :selected=>Task.statuses[@task.status]  %>
 
