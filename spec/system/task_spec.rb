@@ -51,6 +51,13 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content '未着手'
       end
     end
+    context '優先順位検索をした場合' do
+      it "優先順位が高い順にソートできる" do
+        visit tasks_path
+        click_link "優先度"
+        expect(page).to have_content '高'
+      end
+    end
   end
 end
 
