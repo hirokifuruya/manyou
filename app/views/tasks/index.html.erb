@@ -2,12 +2,20 @@
 <div class="master">
   <p class="content"><%= notice %></p>
 
+  <div>
+      <%= form_tag(tasks_path, method: "get") do %>
+      <%= label_tag :task_name, "タイトル" %><%= text_field_tag :task_name, params[:task_name] %>
+      <%= label_tag :status, "ステータス" %>
+      <%= select_tag :status, options_for_select(Task.statuses), include_blank: true %>
+      <%= submit_tag "検索" %>
+      <% end %>
+
 <table class="content">
   <tr>
-    <th>タスク名<th>
+    <th>タイトル名<th>
     <th>詳細<th>
     <th><%= sort_order "deadline", "終了期限"%></th>
-    <th></th>
+    <th>ステータス</th>
     <th></th>
     <th></th>
     <th></th>
