@@ -3,7 +3,7 @@ class TasksController < ApplicationController
     helper_method :sort_column, :sort_direction
 
     def index
-      @tasks = Task.order("#{sort_column} #{sort_direction}") #.page(params[:pege])
+      @tasks = Task.order("#{sort_column} #{sort_direction}") .page(params[:pege])
       if params[:task_name].present?
         @tasks = @tasks.get_by_task_name params[:task_name]
       end
