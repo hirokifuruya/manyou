@@ -4,12 +4,11 @@ class TasksController < ApplicationController
 
     def index
       @tasks = Task.order("#{sort_column} #{sort_direction}").page(params[:pege]).per(5)
-      byebug
       if params[:task_name].present?
-        @tasks = @tasks.get_by_task_name params[:task_name]#.page(params[:pege]).per(5)
+        @tasks = @tasks.get_by_task_name params[:task_name]
       end
       if params[:status].present?
-        @tasks = @tasks.get_by_status params[:status]#.page(params[:pege]).per(5)
+        @tasks = @tasks.get_by_status params[:status]
       end
     end
 

@@ -13,4 +13,6 @@ class Task < ApplicationRecord
   scope :get_by_status, ->(status){
     where(status: status)
   }
+
+  scope :desc_sort, ->{reorder(priority: :desc)}
 end
