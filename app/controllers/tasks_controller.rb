@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
-    helper_method :sort_column, :sort_direction
 
     def index
       @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(5)
@@ -22,13 +21,14 @@ class TasksController < ApplicationController
         @task = Task.new
     end
 
-    def confirm
+    #def confirm
       #@task = current_user.tasks.build(task_params)
-      render :new if @task.invalid?
-    end
+      #render :new if @task.invalid?
+    #end
 
     def create
       @task = Task.new(task_params)
+      @task.user_id = current_user.id
       if @task.save
           flash[:notice] = "作成しました！"
           redirect_to tasks_path
