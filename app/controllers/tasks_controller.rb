@@ -3,12 +3,18 @@ class TasksController < ApplicationController
     helper_method :sort_column, :sort_direction
 
     def index
-      @tasks = Task.order("#{sort_column} #{sort_direction}").page(params[:pege]).per(5)
+      @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(5)
       if params[:task_name].present?
         @tasks = @tasks.get_by_task_name params[:task_name]
       end
       if params[:status].present?
         @tasks = @tasks.get_by_status params[:status]
+      end
+      if params[:deadline].present?
+        @tasks = @tasks.reorder(deadline: :desc)
+      end
+      if params[:priority]
+        @tasks = @tasks.desc_sort
       end
     end
 
