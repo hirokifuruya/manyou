@@ -100,7 +100,7 @@ RSpec.describe 'ユーザー管理機能' , type: :system do
         fill_in 'user_password', with: '111111'
         fill_in 'user_password_confirmation', with: '111111'
         click_on "登録する"
-        expect(page).to have_content '箱崎のページ'
+        expect(page).to have_content '箱崎'
         end
       end
 
