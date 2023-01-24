@@ -1,0 +1,9 @@
+<h1><%= @user.name %>のページ</h1>
+<h2>詳細</h2>
+
+<% @task.each do |task| %>
+<p>タスク :<%=link_to task.task_name, task_path(task.id)%></p>
+<% end %>
+<%= link_to "一覧画面にもどる", tasks_path %>
+<%= link_to '新たに投稿する。', new_task_path %>
+<%= link_to '管理者ページ', admin_users_path %>

@@ -1,0 +1,23 @@
+<%= form_with(model: [:admin,@user], local: true) do |user| %>
+  <div class="name">
+    <%= user.label :name,'名前' %>
+    <%= user.text_field :name %>
+  </div>
+  <div class="email">
+    <%= user.label :email,'メール' %>
+    <%= user.text_field :email %>
+  </div>
+  <div class="password">
+    <%= user.label :password,'パスワード' %>
+    <%= user.text_field :password %>
+  </div>
+  <div class="password_confirmation">
+    <%= user.label :password_confirmation,'パスワード確認' %>
+    <%= user.text_field :password_confirmation %>
+  </div>
+    <div>
+      <%= user.label :admin_check,'管理者権限' %>
+      <%=user.check_box :admin%>
+    </div>
+  <%= user.submit %>
+<% end %>

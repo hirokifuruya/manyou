@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  belongs_to :user
   validates :task_name, presence: true
   validates :task_content, presence: true
   validates :deadline, presence: true
@@ -12,4 +13,6 @@ class Task < ApplicationRecord
   scope :get_by_status, ->(status){
     where(status: status)
   }
+
+  scope :desc_sort, ->{reorder(priority: :desc)}
 end

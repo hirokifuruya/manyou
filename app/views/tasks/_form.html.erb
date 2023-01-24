@@ -28,7 +28,6 @@
     <%= form.select :status, Task.statuses.keys, :selected=>Task.statuses[@task.status]  %>
 
   <%= form.submit "タスク作成" %>
-
 <% end %>
 
 <%= link_to "タスク一覧画面にもどる", tasks_path,class: "btn btn-primary" %>

@@ -1,24 +1,23 @@
-<div class="container">
 <div class="master">
   <p class="content"><%= notice %></p>
+  <a class="navbar-brand" href="#">タスク一覧</a>
 
   <div>
-      <%= form_tag(tasks_path, method: "get") do %>
-      <%= label_tag :task_name, "タイトル" %><%= text_field_tag :task_name, params[:task_name] %>
-      <%= label_tag :status, "ステータス" %>
-      <%= select_tag :status, options_for_select(Task.statuses), include_blank: true %>
-      <%= submit_tag "検索" %>
-      <% end %>
+  <%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <p>タイトル<%= form.text_field :title %></p>
+  <p>ステータス<%= select_tag :status, options_for_select(Task.statuses), include_blank: true %></p>
+    <%= form.submit '検索', name: nil %>
+    <% end %>
   </div>
 
 <table class="content">
   <tr>
     <th>タイトル名</th>
     <th>詳細</th>
-    <th><%= sort_order "deadline", "終了期限"%></th>
-    <th><%= sort_order "priority", "優先度"%></th>
+    <th><button type="button" class="btn btn-outline-secondary"><%=link_to "終了期限", tasks_path(deadline: true) %></button></th>
+    <th><button type="button" class="btn btn-outline-secondary"><%=link_to "優先度", tasks_path(priority: true)%></button></th>
     <th>ステータス</th>
-    <th></th>
+    <th>ユーザー名</th>
     <th></th>
   </tr>
   <% @tasks.each do |task| %>
@@ -28,6 +27,7 @@
       <td><%= task.deadline %></td>
       <td><%= task.priority%></td>
       <td><%= task.status %></td>
+      <td><%= task.user.name %></td>
       <td><button type="button" class="btn btn-outline-secondary"><%= link_to '詳細を確認する', task_path(task.id), class: "link" %></button></td>
       <td><button type="button" class="btn btn-outline-secondary"><%= link_to '編集する', edit_task_path(task.id), class: "link" %></button></td>
       <td><button type="button" class="btn btn-outline-secondary"><%= link_to '削除する', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></button></td>
@@ -41,3 +41,39 @@
   </label>
 </div>
 <%= paginate @tasks %>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          深夜組
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">高橋さん</a>
+          <a class="dropdown-item" href="#">箱崎さん</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Gather王その名も坂本さん</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">入力してください</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="クリックしてください" aria-label="Search">
+    </form>
+  </div>
+</nav>

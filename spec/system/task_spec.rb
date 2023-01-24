@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
   let!(:task) {FactoryBot.create(:task) }
+  let!(:user) { FactoryBot.create(:user) }
 
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
