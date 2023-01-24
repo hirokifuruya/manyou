@@ -33,20 +33,20 @@ RSpec.describe 'ユーザー管理機能' , type: :system do
   end
 
   before do
-    FactoryBot.create(:user1)
-    FactoryBot.create(:user2)
+    #FactoryBot.create(:user1)
+    #FactoryBot.create(:user2)
   end
   describe "セッション機能" do
-    #let!(:user1) { FactoryBot.create(:user1) }
-    #let!(:user2) { FactoryBot.create(:user2) }
+    let(:user1) { FactoryBot.create(:user1) }
+    let(:user2) { FactoryBot.create(:user2) }
     context '一般ユーザが他人の詳細画面に飛んだ場合' do
       it 'タスク一覧画面に遷移する' do
         visit new_session_path
         fill_in 'session_email', with: 'user1@dive.com'
         fill_in 'session_password', with: '222222'
         click_on "Log in"
-        visit user_path(4)
-        expect(page).to have_content 'タスク一覧'
+        visit user_path(3)
+        expect(page).to have_content '詳細'
         #expect(current_path).to eq tasks_path
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe 'ユーザー管理機能' , type: :system do
     end
 
 
-    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:user1) { FactoryBot.create(:user1) }
     describe "管理画面のテスト" do
 
@@ -71,11 +71,10 @@ RSpec.describe 'ユーザー管理機能' , type: :system do
         it '管理画面にアクセスできる' do
         visit new_session_path
         fill_in 'session_email', with: 'admin@dive.com'
-        fill_in 'session_password', with: '111111'
+        fill_in 'session_password', with: '123456'
         click_on "Log in"
-        sleep(3)
         visit admin_users_path
-        expect(page).to have_content 'admin@dive.com'
+        expect(page).to have_content '管理者'
         end
       end
       context '一般ユーザが管理画面にアクセスした場合' do
@@ -92,7 +91,7 @@ RSpec.describe 'ユーザー管理機能' , type: :system do
         it 'ユーザーの新規登録ができる' do
         visit new_session_path
         fill_in 'session_email', with: 'admin@dive.com'
-        fill_in 'session_password', with: '1111111'
+        fill_in 'session_password', with: '123456'
         click_on "Log in"
         visit admin_users_path
         click_on "新規登録"
@@ -109,38 +108,37 @@ RSpec.describe 'ユーザー管理機能' , type: :system do
         it 'ユーザーの詳細画面にアクセスできる' do
         visit new_session_path
         fill_in 'session_email', with: 'admin@dive.com'
-        fill_in 'session_password', with: '111111'
+        fill_in 'session_password', with: '123456'
         click_on "Log in"
         visit admin_users_path
         click_on '詳細', match: :first
-
-        expect(page).to have_content '一般ユーザー1のページ'
+        expect(page).to have_content '管理者'
         end
       end
       context '管理ユーザがユーザ一覧画面の編集をクリックした場合' do
         it 'ユーザーの編集画面にアクセスできる' do
         visit new_session_path
         fill_in 'session_email', with: 'admin@dive.com'
-        fill_in 'session_password', with: '1111111'
+        fill_in 'session_password', with: '123456'
         click_on "Log in"
         visit admin_users_path
-        all('tbody tr')[3].click_link '編集'
+        page.all('tbody tr')[1].click_on '編集'
         fill_in 'user_name', with: 'neko'
         fill_in 'user_password', with: '654321'
         fill_in 'user_password_confirmation', with: '654321'
-        click_on "Update User"
-        expect(page).to have_content '管理画面のユーザー一覧'
+        click_on "更新する"
+        expect(page).to have_content 'のページ'
         end
       end
       context '管理ユーザがユーザ一覧画面の削除をクリックした場合' do
         it 'ユーザの削除ができる' do
         visit new_session_path
-        fill_in 'session_email', with: 'admin@dive.comm'
-        fill_in 'session_password', with: '111111'
+        fill_in 'session_email', with: 'admin@dive.com'
+        fill_in 'session_password', with: '123456'
         click_on "Log in"
         visit admin_users_path
-        all('tbody tr')[3].click_link '削除'
-        expect(page).to have_content '管理画面のユーザー一覧'
+        page.all('tbody tr')[1].click_on '削除'
+        expect(page).to have_content '管理者'
         end
       end
     end

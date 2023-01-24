@@ -28,7 +28,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if @user.uptate(user_params)
+    if @user.update(user_params)
       redirect_to admin_user_path, notice: "更新しました。"
     else
         render :edit
