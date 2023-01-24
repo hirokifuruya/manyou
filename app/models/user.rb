@@ -2,6 +2,7 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
   before_destroy :admin_exist_check
   before_update :admin_update_exist
+  validates :email, uniqueness: true
 
   has_many :tasks, dependent: :destroy
   validates :name, presence: true, length: { maximum: 30 }

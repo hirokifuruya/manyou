@@ -1,4 +1,3 @@
-<div class="container">
 <div class="master">
   <p class="content"><%= notice %></p>
   <a class="navbar-brand" href="#">タスク一覧</a>
@@ -18,7 +17,7 @@
     <th><button type="button" class="btn btn-outline-secondary"><%=link_to "終了期限", tasks_path(deadline: true) %></button></th>
     <th><button type="button" class="btn btn-outline-secondary"><%=link_to "優先度", tasks_path(priority: true)%></button></th>
     <th>ステータス</th>
-    <th></th>
+    <th>ユーザー名</th>
     <th></th>
   </tr>
   <% @tasks.each do |task| %>
