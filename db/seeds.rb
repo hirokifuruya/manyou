@@ -32,6 +32,6 @@ end
     deadline: '2023-01-25',
     priority: rand(0..2),
     status: rand(0..2),
-    user_id: rand(0..10)
+    user_id: 1
   )
 end
