@@ -1,11 +1,3 @@
-10.times do |i|
-  Label.create!(name: "java#{i + 1}",)
-end
-
-10.times do |i|
-  Task.create!(task_name: "タスク", task_content: "テスト", deadline: "2023-01-25", user_id: 1)
-end
-
 User.create(name: 'seed1', email: 'seed1@gmail.com', password: 'seed1@gmail.com', password_confirmation: 'seed1@gmail.com')
 User.create(name: 'seed2', email: 'seed2@gmail.com', password: 'seed1@gmail.com', password_confirmation: 'seed1@gmail.com')
 User.create(name: 'seed3', email: 'seed3@gmail.com', password: 'seed1@gmail.com', password_confirmation: 'seed1@gmail.com')
