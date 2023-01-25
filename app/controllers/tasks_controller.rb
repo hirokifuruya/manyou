@@ -15,10 +15,13 @@ class TasksController < ApplicationController
       if params[:priority]
         @tasks = @tasks.desc_sort
       end
+      if params[:label_id].present?
+        @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
+      end
     end
 
     def new
-        @task = Task.new
+        @task = current_user.tasks.build
     end
 
     #def confirm
@@ -63,18 +66,11 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:task_content, :task_name, :deadline, :status, :priority)
+      params.require(:task).permit(:task_content, :task_name, :deadline, :status, :priority, {label_ids: []})
     end
 
     def set_task
       @task = Task.find(params[:id])
     end
 
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
-    end
-
-    def sort_column
-      Task.column_names.include?(params[:sort]) ? params[:sort] : 'id'
-    end
 end

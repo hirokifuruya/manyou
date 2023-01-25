@@ -4,6 +4,9 @@
 
 <p>名前:<%= @task.task_name %></p>
 <p>内容<%= @task.task_content %></p>
-
+<p>終了期限: <%= @task.deadline %></p>
+<p>優先順位: <%= @task.priority %></p>
+<p>ステータス: <%= @task.status %></p>
+<p>ラベル: <%= @task.labels.pluck(:name) %></p>
 
 <%= link_to "一覧画面にもどる", tasks_path%>
