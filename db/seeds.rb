@@ -27,7 +27,7 @@ end
 # <taskデータ>
 10.times do |i|
   Task.create!(
-    task_name: "タイトル#{1 + 1}",
+    task_name: "タイトル#{i + 1}",
     task_content: "テスト",
     deadline: '2023-01-25',
     priority: rand(0..2),
