@@ -4,10 +4,11 @@
 
   <div>
   <%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <p>タイトル<%= form.text_field :title %></p>
-  <p>ステータス<%= select_tag :status, options_for_select(Task.statuses), include_blank: true %></p>
+    <p>タイトル<%= form.text_field :title %></p>
+    <p>ステータス<%= select_tag :status, options_for_select(Task.statuses), include_blank: true %></p>
+    <p>ラベル<%= form.select( "label_id", Label.pluck(:name, :id), { include_blank: true }) %></p>
     <%= form.submit '検索', name: nil %>
-    <% end %>
+  <% end %>
   </div>
 
 <table class="content">
@@ -19,6 +20,9 @@
     <th>ステータス</th>
     <th>ユーザー名</th>
     <th></th>
+    <th></th>
+    <th></th>
+    <th>ラベル</th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
@@ -31,6 +35,9 @@
       <td><button type="button" class="btn btn-outline-secondary"><%= link_to '詳細を確認する', task_path(task.id), class: "link" %></button></td>
       <td><button type="button" class="btn btn-outline-secondary"><%= link_to '編集する', edit_task_path(task.id), class: "link" %></button></td>
       <td><button type="button" class="btn btn-outline-secondary"><%= link_to '削除する', task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか？'}, class: "link" %></button></td>
+      <% task.labels.each do |label| %>
+      <td><%= label.name %></td>
+      <% end %>
     </tr>
   <% end%>
 </table>

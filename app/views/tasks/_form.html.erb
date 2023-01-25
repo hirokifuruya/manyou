@@ -27,6 +27,13 @@
     <%= form.label :status %>
     <%= form.select :status, Task.statuses.keys, :selected=>Task.statuses[@task.status]  %>
 
+    <% Label.all.each do |label| %>
+    <%#<%= form.check_box :label_ids, { multiple: ture, checked: @task.label_ids.include?(label.id), disabled: label[:disabled], include_hidden: false}, label[:id] %>
+    <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+    <%#%<%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+    <label><%= label.name %></label>
+    <% end %>
+
   <%= form.submit "タスク作成" %>
 <% end %>
 
