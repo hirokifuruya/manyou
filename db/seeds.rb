@@ -20,7 +20,7 @@ User.create(name: 'seed10', email: 'seed10@gmail.com', password: 'seed1@gmail.co
 
 # <taskデータ>
 10.times do |i|
-  Task.create!(task_name: "タイトル", task_content: "テスト", deadline: '2023-01-25', user_id: 1)
+  Task.create!(task_name: "タイトル", task_content: "テスト", deadline: '2023-01-25')
 end
 
 # <labelデータ>
